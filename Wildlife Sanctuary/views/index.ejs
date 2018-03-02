@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+      input, button{
+        border-radius: 5px 5px;
+        border-style: solid;
+        border-color: rgba(220,220,220,0.7);
+        padding: 5px 5px;
+      }
+    </style>
+    <meta charset="utf-8">
+    <title>Wildlife Sanctuary</title>
+  </head>
+  <body>
+    <div class="nav">
+      <h1>WILDLIFE SANCTUARY</h1>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/guide">Park Guide</a></li>
+      </ul>
+    </div>
+    <div class="content">
+      <div class="contentTitle">
+        <h2>Booking Details</h2>
+      </div>
+      <form class="" action="/booking" method="post">
+        <label for="submitbutton" style="font-weight: bold">View all reservations</label><br><br>
+        <button type="submit" name="submitbutton" style="padding: 5px 20px;"><b>VIEW</b></button>
+      </form>
+    </div>
+    <hr>
+
+    <div class="content">
+      <div class="contentTitle">
+        <h2>Reserve ticket</h2>
+      </div>
+      <form class="" action="/reserve" method="post">
+        <label for="class"><b>Date</b></label><br>
+        <input type="date" name="date" required /><br><br>
+        <label for="class"><b>Ticket Class</b></label>
+        <input type="radio" name="class" value="500" required  />Admission plus
+        <input type="radio" name="class" value="450" required  />Admission
+        <br><br>
+        <button type="submit" name="type" value="adduser"><b>RESERVE</b></button>
+      </form>
+    </div>
+    <div class="footer">
+      <p>Copyright 2018 by Wildlife Sanctuary</p>
+    </div>
+  </body>
+</html>

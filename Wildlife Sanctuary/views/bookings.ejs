@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Booking</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <style>
+      th, td{
+        padding: 5px;
+      }
+    </style>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div class="nav">
+      <h1>WILDLIFE SANCTUARY</h1>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/">Park Guide</a></li>
+      </ul>
+    </div>
+    <!--
+      received object is result object
+
+      result = {  outBinds: undefined,
+                  rowsAffected: undefined,
+                  metaData: [ { name: 'B_ID' }, { name: 'B_FARE' }, { name: 'B_DATE' } ],
+                  rows:
+                    [ [ 1, 500, 2018-02-19T18:30:00.000Z ],
+                    [ 2, 450, 2018-02-20T18:30:00.000Z ] ] }
+
+                    table prints result looping through metaData for fields and
+                    then through result array for data
+
+    -->
+    <table>
+      <tr>
+
+        <% for(var i=0; i< data.metaData.length; i++) {%>
+          <th><%= data.metaData[i].name %></th>
+        <% } %>
+      </tr>
+      <% for(i=0; i< data.rows.length; i++) {%>
+        <tr>
+          <% for(var j=0; j< data.rows[i].length; j++) { %>
+            <td>
+              <%= data.rows[i][j] %>
+            </td>
+          <% } %>
+        </tr>
+      <% } %>
+    </table>
+    <div class="footer">
+      <p>Copyright 2018 by Wildlife Sanctuary</p>
+    </div>
+  </body>
+</html>

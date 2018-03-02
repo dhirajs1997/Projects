@@ -1,0 +1,46 @@
+body{
+  background: #efe;
+  color: #222;
+  margin: 0 auto;
+  width: 70%;
+  font-family: Roboto;
+}
+
+.nav{
+  background: lightgreen;
+  border-radius: 15px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0px 0 10px 0;
+  margin-bottom: 20px;
+}
+.nav ul{
+  display:flex;
+  justify-content: flex-start;
+}
+.nav li{
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: space-between;
+  list-style-type: none;
+}
+.nav a{
+  text-decoration: none;
+  color: #222;
+  font-size: 22px;
+}
+
+.footer{
+  background: #222;
+  color: lightgreen;
+  text-align: center;
+  border-radius: 15px;
+  padding: 1px;
+  margin-top: 30px;
+}
+.content{
+  font-size: 18px;
+}
+.contentTitle{
+  text-align: center;
+}

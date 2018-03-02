@@ -1,0 +1,18 @@
+{
+  "name": "wildlifesanctuary",
+  "version": "1.0.0",
+  "description": "Project using nodejs and oracle",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dhiraj",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "nodemon": "^1.17.1",
+    "oracledb": "^2.1.2"
+  }
+}
