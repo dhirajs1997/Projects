@@ -2,13 +2,102 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>BrowserTorrent</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css" />
+    <style>
+
+    .content{
+      margin-top: 150px;
+    }
+    .navbar-brand .navbar-item{
+      font-size: 30px;
+      margin-right: 70px;
+    }
+    .navbar-start .navbar-item{
+      font-size: 20px;
+      margin-right: 30px;
+    }
+    footer .content{
+      margin: 10px 0 10px 0;
+      padding: 10px;
+    }
+    </style>
   </head>
   <body>
-    <form action="/torrent" method="post">
-      <input type="text" name="torrentid" value="magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent" required>
-      <input type="text" name="test" value="testingpurpose">
-      <button type="submit" name="torrent-submit">Download</button>
-    </form>
+    <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+
+// Get all "navbar-burger" elements
+var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+// Check if there are any navbar burgers
+if ($navbarBurgers.length > 0) {
+
+  // Add a click event on each of them
+  $navbarBurgers.forEach(function ($el) {
+    $el.addEventListener('click', function () {
+
+      // Get the target from the "data-target" attribute
+      var target = $el.dataset.target;
+      var $target = document.getElementById(target);
+
+      // Toggle the class on both the "navbar-burger" and the "navbar-menu"
+      $el.classList.toggle('is-active');
+      $target.classList.toggle('is-active');
+
+    });
+  });
+}
+
+});
+    </script>
+    <nav class="navbar is-primary">
+      <div class="navbar-brand">
+        <a class="navbar-item">BrowserTorrent</a>
+        <div class="navbar-burger burger" data-target="navItems">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="navbar-menu" id="navItems">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/">HOME</a>
+          <a class="navbar-item" href="/torrents">MY DOWNLOADS</a>
+        </div>
+      </div>
+    </nav>
+    <div class="container content is-fluid">
+      <form action="/torrent" method="post">
+        <div class="field has-text-centered">
+          <label class="label">Enter torrent ID or magnetURI</label>
+          <div class="field is-horizontal has-addons has-addons-centered">
+          <div class="control">
+            <input class="input is-medium"type="text" name="torrentid" value="magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent" required>
+          </div>
+          <div class="control">
+            <button class="button is-info is-outlined is-medium" type="submit" name="torrent-submit">Download</button>
+          </div>
+        </div>
+      </div>
+      </form>
+      <div class="container has-text-centered" style="margin-top: 40px;">
+        <p>Not sure how to download using BrowserTorrent.</p>
+        <a href="how-to">Click here to learn.</a>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <strong>BrowserTorrent</strong> by Dhiraj, Umesh, and Anish.
+          </p>
+          <p>
+            Powered by <strong><a href="https://webtorrent.io/">WebTorrent</a></strong> and <strong><a href="https://bulma.io">Bulma</a></strong>
+          </p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

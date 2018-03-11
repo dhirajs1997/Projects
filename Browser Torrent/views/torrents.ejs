@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>list</title>
+  </head>
+  <body>
+
+    <!--
+    WebTorrent {
+domain: null,
+_events: {},
+_eventsCount: 0,
+_maxListeners: undefined,
+peerId: '2d5757303039382d616c7869614e6b546e7a4364',
+peerIdBuffer: <Buffer 2d 57 57 30 30 39 38 2d 61 6c 78 69 61 4e 6b 54 6e 7a 43 64>,
+nodeId: '1051c978a482e9d0f396b136c4fc7ad4dab8afc0',
+nodeIdBuffer: <Buffer 10 51 c9 78 a4 82 e9 d0 f3 96 b1 36 c4 fc 7a d4 da b8 af c0>,
+_debugId: '2d57573',
+destroyed: false,
+listening: true,
+  torrentPort: 53904,
+  dhtPort: 58752,
+  tracker: {},
+  torrents: [],
+  maxConns: 55,
+  _tcpPool:
+  TCPPool {
+    server:
+     Server {
+       domain: null,
+       _events: [Object],
+       _eventsCount: 3,
+       _maxListeners: undefined,
+       _connections: 0,
+       _handle: [Object],
+       _usingSlaves: false,
+       _slaves: [],
+        _unref: false,
+        allowHalfOpen: false,
+        pauseOnConnect: false,
+        _connectionKey: '6::::0',
+        [Symbol(asyncId)]: 12 },
+     _client: [Circular],
+     _pendingConns: [],
+     _onConnectionBound: [Function],
+     _onListening: [Function],
+     _onError: [Function] },
+  _downloadSpeed: [Function],
+  _uploadSpeed: [Function],
+  dht:
+  DHT {
+     _tables:
+      LRU {
+        domain: null,
+        _events: {},
+        _eventsCount: 0,
+        _maxListeners: undefined,
+        cache: {},
+        tail: null,
+        head: null,
+        length: 0,
+        max: 1000,
+        maxAge: 300000 },
+     _values:
+      LRU {
+        domain: null,
+        _events: {},
+        _eventsCount: 0,
+        _maxListeners: undefined,
+        cache: {},
+        tail: null,
+        head: null,
+        length: 0,
+        max: 1000,
+        maxAge: 0 },
+        _peers:
+      RecordCache {
+        maxSize: 10000,
+        maxAge: 0,
+        _fresh: [Object],
+        _stale: [Object],
+        _interval: null },
+     _secrets:
+      [ <Buffer 43 e1 3c 98 ce 09 ac ab cd 28 05 cd 46 e5 3e 39 21 87 98 69>,
+        <Buffer 7c 4f 0d 37 f0 0d c9 d2 53 8e fc 36 ac 8d 83 f3 d3 31 70 a9> ],
+
+     _hash: [Function: sha1],
+     _hashLength: 20,
+     _rpc:
+     RPC {
+        _idLength: 20,
+        id: <Buffer 68 44 43 18 ee 2b a9 28 c7 7f 16 ce 02 20 e0 87 08 30 59 fc>,
+        socket: [Object],
+        bootstrap: [Array],
+        concurrency: 16,
+        backgroundConcurrency: 4,
+        k: 20,
+        destroyed: false,
+        pending: [],
+        nodes: [Object],
+        domain: null,
+        _events: [Object],
+        _eventsCount: 5,
+        _maxListeners: undefined },
+     _verify: null,
+     _host: null,
+     _interval:
+     Timeout {
+        _called: false,
+        _idleTimeout: 300000,
+        _idlePrev: [Object],
+        _idleNext: [Object],
+        _idleStart: 512,
+        _onTimeout: [Function: rotateSecrets],
+        _timerArgs: undefined,
+        _repeat: 300000,
+        _destroyed: false,
+        [Symbol(asyncId)]: 19,
+        [Symbol(triggerAsyncId)]: 1 },
+     _runningBucketCheck: true,
+     _bucketCheckTimeout:
+      Timeout {
+        _called: false,
+        _idleTimeout: 83945,
+        _idlePrev: [Object],
+        _idleNext: [Object],
+        _idleStart: 514,
+        _onTimeout: [Function: checkBucket],
+        _timerArgs: undefined,
+        _repeat: null,
+        _destroyed: false,
+        [Symbol(asyncId)]: 23,
+        [Symbol(triggerAsyncId)]: 1 },
+     _bucketOutdatedTimeSpan: 900000,
+     listening: true,
+     destroyed: false,
+     nodeId: <Buffer 68 44 43 18 ee 2b a9 28 c7 7f 16 ce 02 20 e0 87 08 30 59 fc>,
+     nodes:
+     KBucket {
+       domain: null,
+       _events: [Object],
+       _eventsCount: 1,
+       _maxListeners: undefined,
+       localNodeId: <Buffer 68 44 43 18 ee 2b a9 28 c7 7f 16 ce 02 20 e0 87 08 30 59 fc>,
+       numberOfNodesPerKBucket: 20,
+       numberOfNodesToPing: 16,
+       distance: [Function],
+       arbiter: [Function],
+       root: [Object],
+        metadata: [Object] },
+     domain: null,
+     _events: { error: [Object] },
+     _eventsCount: 1,
+     _maxListeners: 0 },
+  enableWebSeeds: true,
+  ready: true }
+
+    -->
+
+    <% if(data != 'noTorrentPresent'){ %>
+      <% for(var i=0; i < data.length; i++) { %>
+      <p>name: <%=data[i].name%></p>
+      <p>Save path: <%=data[i].path%></p>
+      <p>Info hash: <%=data[i].infoHash%></p>
+      <p>magnetURI: <%=data[i].magnetURI%></p>
+      <p>xt: <%=data[i].xt%></p>
+      <p>size: <%=((data[i].length)/(1024*1024))%> MB</p>
+      <% } %>
+    <% }else{ %>
+      <p>No torrent present. Add one to view</p>
+      <% } %>
+
+    <script type="text/javascript">
+      console.log();
+    </script>
+  </body>
+</html>
