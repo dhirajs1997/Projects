@@ -11,14 +11,17 @@ module.exports = function(app){
   app.get('/', function(req, res){
     res.render('index');
   });
-  app.get('/torrents', function(req, res){
+  app.get('/how-to', function(req, res){
+    res.render('how-to');
+  });
+  app.get('/mytorrents', function(req, res){
     // console.log(client.torrents);
-    if(!client.torrents.length){
+    if(client.torrents.length != 0){
       var message = 'noTorrentPresent';
       console.log(message);
-      res.render('torrents',{data: message});
+      res.render('mytorrents',{data: message});
     }else{
-      res.render('torrents',{data: client.torrents});
+      res.render('mytorrents',{data: client.torrents});
     }
   });
 
@@ -29,7 +32,13 @@ module.exports = function(app){
       res.render('alreadypresent');
     }else{
       client = new WebTorrent();
-      client.add(magnetURI, {path : 'C:/Users/Dhiraj/Desktop' }, function(torrent) {
+      var userpath = req.body.path;
+      console.log(userpath);
+      while(userpath.includes("\\")){
+        userpath = userpath.replace("\\","/");
+      }
+      console.log(userpath);
+      client.add(magnetURI, {path : userpath }, function(torrent) {
         torrent.on('ready', function(){
           console.log('Download starting')
         });
@@ -40,7 +49,7 @@ module.exports = function(app){
           data = {progress: torrent.progress * 100, downloadSpeed: torrent.downloadSpeed / 1024};
           iosocket.io.sockets.emit('stats',data);
         })
-        res.render('downloading', {data: torrent});
+        res.render('mytorrents', {data: client.torrents});
         var interval = setInterval(function () {
           data = {progress: torrent.progress * 100, downloadSpeed: torrent.downloadSpeed / 1024};
           iosocket.io.sockets.emit('stats',data);
