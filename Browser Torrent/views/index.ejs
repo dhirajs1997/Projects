@@ -64,17 +64,25 @@ if ($navbarBurgers.length > 0) {
       <div class="navbar-menu" id="navItems">
         <div class="navbar-start">
           <a class="navbar-item" href="/">HOME</a>
-          <a class="navbar-item" href="/torrents">MY DOWNLOADS</a>
+          <a class="navbar-item" href="/mytorrents">MY DOWNLOADS</a>
         </div>
       </div>
     </nav>
     <div class="container content is-fluid">
       <form action="/torrent" method="post">
         <div class="field has-text-centered">
+          <label class="label">Enter download directory</label>
+          <div class="field is-horizontal has-addons has-addons-centered">
+          <div class="control">
+            <input type="text" class="input is-medium" name="path" required>
+          </div>
+        </div>
+      </div>
+        <div class="field has-text-centered">
           <label class="label">Enter torrent ID or magnetURI</label>
           <div class="field is-horizontal has-addons has-addons-centered">
           <div class="control">
-            <input class="input is-medium"type="text" name="torrentid" value="magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent" required>
+            <input class="input is-medium" type="text" name="torrentid" value="magnet:?xt=urn:btih:08ada5a7a6183aae1e09d831df6748d566095a10&dn=Sintel&tr=udp%3A%2F%2Fexplodie.org%3A6969&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969&tr=udp%3A%2F%2Ftracker.empire-js.us%3A1337&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337&tr=wss%3A%2F%2Ftracker.btorrent.xyz&tr=wss%3A%2F%2Ftracker.fastcast.nz&tr=wss%3A%2F%2Ftracker.openwebtorrent.com&ws=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2F&xs=https%3A%2F%2Fwebtorrent.io%2Ftorrents%2Fsintel.torrent" required>
           </div>
           <div class="control">
             <button class="button is-info is-outlined is-medium" type="submit" name="torrent-submit">Download</button>
@@ -84,7 +92,7 @@ if ($navbarBurgers.length > 0) {
       </form>
       <div class="container has-text-centered" style="margin-top: 40px;">
         <p>Not sure how to download using BrowserTorrent.</p>
-        <a href="how-to">Click here to learn.</a>
+        <a href="how-to"  target="_blank">Click here to learn.</a>
       </div>
     </div>
     <footer class="footer">
@@ -94,7 +102,7 @@ if ($navbarBurgers.length > 0) {
             <strong>BrowserTorrent</strong> by Dhiraj, Umesh, and Anish.
           </p>
           <p>
-            Powered by <strong><a href="https://webtorrent.io/">WebTorrent</a></strong> and <strong><a href="https://bulma.io">Bulma</a></strong>
+            This program is <strong>open source</strong>.<a href="https://github.com/dhirajs1997/Projects/tree/master/Browser%20Torrent" target="_blank"> Help us improve this program on Github.</a>
           </p>
         </div>
       </div>
