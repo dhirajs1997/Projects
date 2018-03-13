@@ -5,12 +5,13 @@ var socket = io.connect('http://localhost:3000');
 //DOM elements
 var progress = document.getElementById('progress');
 var downspeed = document.getElementById('downspeed');
-
+var avgspeed = document.getElementById('avgspeed');
+var speedcount = 0;
+var averagespeed = 0;
 //Listen for stats update
 socket.on('stats',function(data){
-  if(data.progress == 100){
-    document.getElementById('status').innerHTML = 'Download Finished!'
-  }
-  progress.innerHTML = '<strong>' + data.progress + '</strong>' + '%';
-  downspeed.innerHTML = '<strong>' + data.downloadSpeed + '</strong>' + ' KBps';
+  progress.innerHTML = '<strong>' + data.progress.toFixed(2) + '</strong>' + '%';
+  downspeed.innerHTML = '<strong>' + data.downloadSpeed.toFixed(2) + '</strong>' + ' KBps';
+  averagespeed +=  data.downloadSpeed;
+  avgspeed.innerHTML = '<strong>' + (averagespeed/++speedcount).toFixed(2) + '</strong>' + ' KBps';
 });
