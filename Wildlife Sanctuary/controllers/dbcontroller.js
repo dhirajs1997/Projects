@@ -20,6 +20,10 @@ module.exports = function(app){
     res.render('guide');
   });
 
+  //to book tickets
+  app.get('/book',function(req,res){
+    res.render('book');
+  });
 
 //add user to booking table
 
@@ -68,8 +72,29 @@ app.post('/reserve', urlencodedParser, function(req, res){
             doRelease(connection);
             return;
           }
+
+          //
+          // connection.execute(
+          //   `SELECT B_ID
+          //    FROM booking
+          //    where B_ID = booking_sequence.currval;`,
+          //   function(err, id_result)
+          //   {
+          //     if (err) {
+          //       console.error(err.message);
+          //       // var resp = {err};
+          //       res.render('reserve', {data: err.message});
+          //       doRelease(connection);
+          //       return;
+          //     }
+          //     console.log('This will print');
+          //     console.log(id_result.rows);
+          //   });
+
+
           console.log(result);
           // var success = 'Reservation added'
+          // var success = 'Reservation added. Booking id is ' + id_result.row[1];
           res.render('reserve', {data: 'Reservation added'});
           doRelease(connection);
         });

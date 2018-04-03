@@ -1,9 +1,19 @@
 <!-- <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
-    <title>Park Guide</title>
     <link rel="stylesheet" href="/styles/main.css">
+    <style>
+      input, button{
+        border-radius: 5px 5px;
+        border-style: solid;
+        border-color: rgba(220,220,220,0.7);
+        padding: 5px 5px;
+      }
+      .title{
+        min-height: 100vh;
+        background-color: greenyellow;
+      }
+    </style>
     <meta charset="utf-8">
     <title>Wildlife Sanctuary</title>
   </head>
@@ -12,7 +22,7 @@
       <h1>WILDLIFE SANCTUARY</h1>
       <ul>
         <li><a href="/">Home</a></li>
-        <li><a href="/">Park Guide</a></li>
+        <li><a href="/guide">Park Guide</a></li>
       </ul>
     </div> -->
 
@@ -79,32 +89,39 @@
 
 
 
+    <div class="title"></div>
     <div class="content">
       <div class="contentTitle">
-        <h2>BOOKING GUIDE</h2>
+        <h2>Booking Details</h2>
       </div>
-      <ul>
-        <li>A maximum of 4 tickets are allocated for prior reservation per day.</li>
-        <li>Reserved tickets to be paid at park itself.</li>
-        <li>All costs are in INR.</li>
-        <li><div class="tickets">
-          Ticket cost-
-          <ul>
-            <li>Admission: ₹450.00</li>
-            <li>Admission plus: ₹500.00</li>
-          </ul>
-        </div></li>
-        <li>Admission ticket allows sightseeing over all areas of the park.</li>
-        <li>Admission ticket allows sightseeing over all areas of the park and meeting Animal Representatives.</li>
-        <li>Reservations are subject to cancellation without prior consent.</li>
-      </ul>
+      <form class="" action="/booking" method="post">
+        <label for="submitbutton" style="font-weight: bold">View all reservations</label><br><br>
+        <button type="submit" name="submitbutton" style="padding: 5px 20px;"><b>VIEW</b></button>
+      </form>
+    </div>
+    <hr>
+
+    <div class="content">
+      <div class="contentTitle">
+        <h2>Reserve ticket</h2>
+      </div>
+      <form class="" action="/reserve" method="post">
+        <label for="class"><b>Date</b></label><br>
+        <input type="date" name="date" required /><br><br>
+        <label for="class"><b>Ticket Class</b></label>
+        <input type="radio" name="class" value="500" required id="admplus"  />
+        <label for="admplus">Admission plus</label>
+        <input type="radio" name="class" value="450" required id="adm"  />
+        <label for="adm">Admission</label>
+        <br><br>
+        <button type="submit" name="type" value="adduser"><b>RESERVE</b></button>
+      </form>
     </div>
     <!-- <div class="footer">
       <p>Copyright 2018 by Wildlife Sanctuary</p>
     </div>
   </body>
 </html> -->
-
 
 <footer class="page-footer green darken-4">
   <div class="container">
@@ -136,3 +153,4 @@
 </body>
 
 </html>
+
