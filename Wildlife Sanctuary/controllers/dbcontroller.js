@@ -264,7 +264,7 @@ app.post('/reserve', urlencodedParser, function(req, res){
             usermessage= 'Reservation added.\nPassphrase is '+passphrase+'.\n Emailed to '+req.body.email;
             const sgMail = require('@sendgrid/mail');
             var mailContent = 'Ticket booked for TheGreenPark on '+date+'. Your passphrase is '+passphrase+'.\n-TheGreenPark Wildlife Sanctuary.';
-            sgMail.setApiKey('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');
+            sgMail.setApiKey(); //Email api key inside
             const msg = {
               to: req.body.email,
               from: 'no-reply@thegreenpark.com',
@@ -347,70 +347,3 @@ app.post('/reserve', urlencodedParser, function(req, res){
         });
     }
   });
-
-  // app.post('/mail', urlencodedParser, function(req, res){
-  //   // var nodemailer = require('nodemailer');
-
-  //   // var transporter = nodemailer.createTransport({
-  //   //   service: 'gmail',
-  //   //   auth: {
-  //   //     user: 'dmtimage@gmail.com',
-  //   //     pass: 'sebastian@1'
-  //   //   }
-  //   // });
-
-  //   // console.log(req.body.email);
-  //   // var mailOptions = {
-  //   //   from: 'no-reply@thegreenpark.com',
-  //   //   to: req.body.email,
-  //   //   subject: 'Sending Email using Node.js',
-  //   //   text: 'That was easy!'
-  //   // };
-
-  //   // transporter.sendMail(mailOptions, function (error, info) {
-  //   //   if (error) {
-  //   //     console.log(error);
-  //   //     res.render('reserve', {data: 'could not send email'});
-  //   //   } else {
-  //   //     console.log('Email sent: ' + info.response);
-  //   //     var emailres = 'sent passphrase at '+req.body.email;
-  //   //     res.render('reserve', { data: emailres });
-  //   //   }
-  //   // });
-
-
-
-  //   // using SendGrid's v3 Node.js Library
-  //   // https://github.com/sendgrid/sendgrid-nodejs
-  //   const sgMail = require('@sendgrid/mail');
-  //   // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  //   sgMail.setApiKey('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');
-  //   const msg = {
-  //     to: '2015dhiraj.sajnani@ves.ac.in',
-  //     from: 'no-reply@thegreenpark.com',
-  //     subject: 'Your booking data',
-  //     html: '<strong></strong>',
-  //   };
-  //   sgMail.send(msg);
-
-  //   res.render('reserve', {data:'ho gaya email'});
-
-
-  // });
-};
-
-
-
-// // using SendGrid's v3 Node.js Library
-// // https://github.com/sendgrid/sendgrid-nodejs
-// const sgMail = require('@sendgrid/mail');
-// // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-// sgMail.setApiKey('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');
-// const msg = {
-//   to: '2015dhiraj.sajnani@ves.ac.in',
-//   from: 'no-reply@thegreenpark.com',
-//   subject: 'Your booking data',
-//   text: 'Passphrase, data here',
-//   html: '<strong>and where does this appear</strong>',
-// };
-// sgMail.send(msg);
