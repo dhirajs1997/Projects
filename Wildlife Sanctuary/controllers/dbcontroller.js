@@ -1,6 +1,8 @@
 var oracledb = require('oracledb');
 oracledb.autoCommit = true;
 
+var md5 = require('md5');
+
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
@@ -19,10 +21,158 @@ module.exports = function(app){
   app.get('/guide', function(req, res){
     res.render('guide');
   });
+  
+  app.get('/thisisforadminonly', function(req, res){
+    res.render('thisisforadminonly');
+  });
 
   //to book tickets
   app.get('/book',function(req,res){
+    console.log(md5('test'));
     res.render('book');
+  });
+
+  app.get('/adminhome', function (req, res) {
+    res.render('index');
+  });
+  app.get('/allbookings', function (req, res) {
+    res.render('index');
+  });
+  app.get('/normalbookings', function (req, res) {
+    res.render('index');
+  });
+  app.get('/plusbookings', function (req, res) {
+    res.render('index');
+  });
+
+  app.post('/adminhome', urlencodedParser, function(req, res){
+    if(req.body.adminname=='admin' && req.body.adminpass=='admin'){
+      res.render('adminhome')
+    }
+    else{
+      res.render('index')
+    }
+  });
+
+  app.post('/allbookings', function(req, res){
+    console.log(req.body);
+    console.log('end parser');
+    //Connection details for oracledb
+    oracledb.getConnection(
+      {
+        user: "system",
+        password: "Password1",
+        connectString: "//localhost:1521/orcl"
+      },
+      function (err, connection) {
+        if (err) {
+          console.error(err.message);
+          return;
+        }
+        connection.execute(
+          `SELECT *
+           FROM developer.booking`,
+          function (err, result) {
+            if (err) {
+              console.error(err.message);
+              // var resp = {err};
+              res.render('bookings', { data: err });
+              doRelease(connection);
+              return;
+            }
+            console.log(result);
+            res.render('bookings', { data: result });
+            doRelease(connection);
+          });
+      });
+
+    function doRelease(connection) {
+      connection.close(
+        function (err) {
+          if (err)
+            console.error(err.message);
+        });
+    }
+  });
+  app.post('/normalbookings', function(req, res){
+    console.log(req.body);
+    console.log('end parser');
+    //Connection details for oracledb
+    oracledb.getConnection(
+      {
+        user: "system",
+        password: "Password1",
+        connectString: "//localhost:1521/orcl"
+      },
+      function (err, connection) {
+        if (err) {
+          console.error(err.message);
+          return;
+        }
+        connection.execute(
+          `SELECT *
+           FROM developer.admission`,
+          function (err, result) {
+            if (err) {
+              console.error(err.message);
+              // var resp = {err};
+              res.render('bookings', { data: err });
+              doRelease(connection);
+              return;
+            }
+            console.log(result);
+            res.render('bookings', { data: result });
+            doRelease(connection);
+          });
+      });
+
+    function doRelease(connection) {
+      connection.close(
+        function (err) {
+          if (err)
+            console.error(err.message);
+        });
+    }
+  });
+  app.post('/plusbookings', function(req, res){
+    console.log(req.body);
+    console.log('end parser');
+    //Connection details for oracledb
+    oracledb.getConnection(
+      {
+        user: "system",
+        password: "Password1",
+        connectString: "//localhost:1521/orcl"
+      },
+      function (err, connection) {
+        if (err) {
+          console.error(err.message);
+          return;
+        }
+        connection.execute(
+          `SELECT *
+           FROM developer.admissionplus`,
+          function (err, result) {
+            if (err) {
+              console.error(err.message);
+              // var resp = {err};
+              res.render('bookings', { data: err });
+              doRelease(connection);
+              return;
+            }
+            console.log(result);
+            res.render('bookings', { data: result });
+            doRelease(connection);
+          });
+      });
+
+    function doRelease(connection) {
+      connection.close(
+        function (err) {
+          if (err)
+            console.error(err.message);
+        });
+    }
   });
 
 //add user to booking table
@@ -37,6 +187,15 @@ app.post('/reserve', urlencodedParser, function(req, res){
 
   date=arr[2]+'-'+month[(arr[1]-1)]+'-'+arr[0];
   console.log(date);
+  var passphrase = md5(date + req.body.email).substr(0,6);
+  console.log('Passphrase: '+passphrase);
+  var bookingClass;
+  if(req.body.class == 450){
+    bookingClass = 'normal';
+  }
+  else{
+    bookingClass = 'plus';
+  }
   //finished date format change
 
   //query
@@ -54,8 +213,8 @@ app.post('/reserve', urlencodedParser, function(req, res){
         return;
       }
       connection.execute(
-        "INSERT INTO booking VALUES (booking_sequence.nextval, :b_fare, :b_date)",
-        { b_fare : {val: req.body.class}, b_date : {val: date} },  // 'bind by name' syntax
+        "INSERT INTO booking VALUES (booking_sequence.nextval, :b_fare, :b_date, :email, :passphrase, :class)",
+        { b_fare : {val: req.body.class}, b_date : {val: date}, email : {val: req.body.email}, passphrase : {val: passphrase}, class : {val: bookingClass} },  // 'bind by name' syntax
         function(err, result)
         {
           if (err) {
@@ -68,7 +227,7 @@ app.post('/reserve', urlencodedParser, function(req, res){
             if(err.message.includes('ORA-20101')) {
               err.message = 'All reservations booked for ' + date + '.\n' + 'Please try another date.'
             }
-            res.render('reserve', {data: err.message});
+            res.render('reserve', { data: err.message});
             doRelease(connection);
             return;
           }
@@ -95,7 +254,28 @@ app.post('/reserve', urlencodedParser, function(req, res){
           console.log(result);
           // var success = 'Reservation added'
           // var success = 'Reservation added. Booking id is ' + id_result.row[1];
-          res.render('reserve', {data: 'Reservation added'});
+          
+          var usermessage= 'Reservation added.\nPassphrase is '+passphrase;
+          
+          console.log('status: '+ req.body.sendmail);
+          //send email to user
+          // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+          if(req.body.sendmail == 1){
+            usermessage= 'Reservation added.\nPassphrase is '+passphrase+'.\n Emailed to '+req.body.email;
+            const sgMail = require('@sendgrid/mail');
+            var mailContent = 'Ticket booked for TheGreenPark on '+date+'. Your passphrase is '+passphrase+'.\n-TheGreenPark Wildlife Sanctuary.';
+            sgMail.setApiKey('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');
+            const msg = {
+              to: req.body.email,
+              from: 'no-reply@thegreenpark.com',
+              subject: 'Tickets booked',
+              text: mailContent
+            };
+            sgMail.send(msg);
+          }
+
+
+          res.render('reserve', { data: usermessage});
           doRelease(connection);
         });
     });
@@ -121,7 +301,7 @@ app.post('/reserve', urlencodedParser, function(req, res){
 
 
 //view values of booking table
-  app.post('/booking', function(req, res){
+  app.post('/booking',urlencodedParser, function(req, res){
     console.log(req.body);
     console.log('end parser');
     //Connection details for oracledb
@@ -139,7 +319,10 @@ app.post('/reserve', urlencodedParser, function(req, res){
         }
         connection.execute(
           `SELECT *
-           FROM booking`,
+           FROM booking
+           WHERE email = :email
+           and passphrase = :passphrase`,
+           {email : {val: req.body.email}, passphrase : {val: req.body.passphrase}},
           function(err, result)
           {
             if (err) {
@@ -164,4 +347,70 @@ app.post('/reserve', urlencodedParser, function(req, res){
         });
     }
   });
+
+  // app.post('/mail', urlencodedParser, function(req, res){
+  //   // var nodemailer = require('nodemailer');
+
+  //   // var transporter = nodemailer.createTransport({
+  //   //   service: 'gmail',
+  //   //   auth: {
+  //   //     user: 'dmtimage@gmail.com',
+  //   //     pass: 'sebastian@1'
+  //   //   }
+  //   // });
+
+  //   // console.log(req.body.email);
+  //   // var mailOptions = {
+  //   //   from: 'no-reply@thegreenpark.com',
+  //   //   to: req.body.email,
+  //   //   subject: 'Sending Email using Node.js',
+  //   //   text: 'That was easy!'
+  //   // };
+
+  //   // transporter.sendMail(mailOptions, function (error, info) {
+  //   //   if (error) {
+  //   //     console.log(error);
+  //   //     res.render('reserve', {data: 'could not send email'});
+  //   //   } else {
+  //   //     console.log('Email sent: ' + info.response);
+  //   //     var emailres = 'sent passphrase at '+req.body.email;
+  //   //     res.render('reserve', { data: emailres });
+  //   //   }
+  //   // });
+
+
+
+  //   // using SendGrid's v3 Node.js Library
+  //   // https://github.com/sendgrid/sendgrid-nodejs
+  //   const sgMail = require('@sendgrid/mail');
+  //   // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  //   sgMail.setApiKey('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');
+  //   const msg = {
+  //     to: '2015dhiraj.sajnani@ves.ac.in',
+  //     from: 'no-reply@thegreenpark.com',
+  //     subject: 'Your booking data',
+  //     html: '<strong></strong>',
+  //   };
+  //   sgMail.send(msg);
+
+  //   res.render('reserve', {data:'ho gaya email'});
+
+
+  // });
 };
+
+
+
+// // using SendGrid's v3 Node.js Library
+// // https://github.com/sendgrid/sendgrid-nodejs
+// const sgMail = require('@sendgrid/mail');
+// // sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey('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');
+// const msg = {
+//   to: '2015dhiraj.sajnani@ves.ac.in',
+//   from: 'no-reply@thegreenpark.com',
+//   subject: 'Your booking data',
+//   text: 'Passphrase, data here',
+//   html: '<strong>and where does this appear</strong>',
+// };
+// sgMail.send(msg);

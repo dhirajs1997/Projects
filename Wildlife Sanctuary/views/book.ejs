@@ -88,13 +88,21 @@
 
 
 
-
+  <div class="container">
     <div class="title"></div>
     <div class="content">
       <div class="contentTitle">
         <h2>Booking Details</h2>
       </div>
       <form class="" action="/booking" method="post">
+        <label for="class"><b>Email</b></label>
+        <br>
+        <input type="email" name="email" required />
+        <label for="class"><b>Passphrase</b></label>
+        <br>
+        <input type="password" name="passphrase" required />
+        <br>
+        <br>
         <label for="submitbutton" style="font-weight: bold">View all reservations</label><br><br>
         <button type="submit" name="submitbutton" style="padding: 5px 20px;"><b>VIEW</b></button>
       </form>
@@ -106,17 +114,43 @@
         <h2>Reserve ticket</h2>
       </div>
       <form class="" action="/reserve" method="post">
+        <label for="class"><b>Email</b></label><br>
+        <input type="email" name="email" required /><br><br>
         <label for="class"><b>Date</b></label><br>
         <input type="date" name="date" required /><br><br>
         <label for="class"><b>Ticket Class</b></label>
-        <input type="radio" name="class" value="500" required id="admplus"  />
-        <label for="admplus">Admission plus</label>
-        <input type="radio" name="class" value="450" required id="adm"  />
-        <label for="adm">Admission</label>
+        <label>
+          <input type="radio" name="class" value="550" required  />
+          <span>Admission plus</span>
+        </label>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <label>
+          <input type="radio" name="class" value="450" required  />
+          <span>Admission</span>
+        </label>
+        <br><br>
+        <label for="class">Send confirmation mail?</label>
+        <label>
+          <input type="radio" name="sendmail" value="1" required  />
+          <span>Yes</span>
+        </label>
+        <span>&nbsp;&nbsp;&nbsp;</span>
+        <label>
+          <input type="radio" name="sendmail" value="0" required  />
+          <span>No</span>
+        </label>
         <br><br>
         <button type="submit" name="type" value="adduser"><b>RESERVE</b></button>
       </form>
+      <br>
+      <!-- <p>mail test</p>
+      <form action="/mail" method="POST">
+        <label for="email">Email</label>
+        <input type="email" name="email" required>
+        <button type="submit"><b>send</b></button>
+      </form> -->
     </div>
+  </div>
     <!-- <div class="footer">
       <p>Copyright 2018 by Wildlife Sanctuary</p>
     </div>
@@ -140,7 +174,7 @@
   </div>
   <div class="footer-copyright">
     <div class="container">
-      <span>Copyright TheGreenPark 2018</span>
+      <span>TheGreenPark 2018 &copy;</span>
     </div>
   </div>
 </footer>
